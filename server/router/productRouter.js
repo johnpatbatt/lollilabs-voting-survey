@@ -6,6 +6,7 @@ const SHOPIFY_ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
 const router = new Router({
   prefix: "/product",
 });
+// update adminURL
 const adminURL =
   "https://lolli-dev.myshopify.com/admin/api/2021-07/graphql.json";
 
