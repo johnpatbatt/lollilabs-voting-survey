@@ -53,7 +53,7 @@ function register(app) {
     `;
     const variables = { ids: products };
 
-    console.log("ids", variables);
+    console.log(JSON.stringify(variables));
 
     const productData = await fetch(adminURL, {
       method: "POST",
