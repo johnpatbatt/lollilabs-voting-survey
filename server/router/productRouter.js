@@ -69,6 +69,8 @@ function register(app) {
       return result.json();
     });
 
+    console.log("productData", productData);
+
     const productsFromQuery = productData.data.nodes.map((product) => ({
       id: product.id,
       title: product.title,
