@@ -8,7 +8,7 @@ const router = new Router({
 });
 // update adminURL
 const adminURL =
-  "https://lolli-dev.myshopify.com/admin/api/2021-07/graphql.json";
+  "https://lollilabs.myshopify.com/admin/api/2021-07/graphql.json";
 
 function register(app) {
   // product save router
