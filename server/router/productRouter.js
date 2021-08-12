@@ -3,12 +3,10 @@ const Router = require("koa-router");
 const productModel = require("../models/Product");
 dotenv.config();
 const SHOPIFY_ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
+const ADMIN_GRAPHQL_URL = process.env.ADMIN_GRAPHQL_URL;
 const router = new Router({
   prefix: "/product",
 });
-// update adminURL
-const adminURL =
-  "https://lollilabs.myshopify.com/admin/api/2021-07/graphql.json";
 
 function register(app) {
   // product save router
@@ -55,7 +53,7 @@ function register(app) {
 
     console.log(JSON.stringify(variables));
 
-    const productData = await fetch(adminURL, {
+    const productData = await fetch(ADMIN_GRAPHQL_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
