@@ -45,9 +45,6 @@ function register(app) {
             metafield3: metafield(namespace: "survey", key: "voting_featured_img") {
               value
             }
-            metafield4: metafield(namespace: "survey", key: "voting_info") {
-              value
-            }
           }
         }
       }
@@ -77,8 +74,9 @@ function register(app) {
       title: product.title,
       handle: product.handle,
       price: product.variants.edges[0].node.price,
+      description: product.metafield1.value,
+      gallery: product.metafield2.value,
       featuredImage: product.metafield3.value,
-      info: product.metafield4.value,
     }));
 
     const removeValIndex = [];

@@ -51,12 +51,6 @@ export default function Index() {
         >
           <p>Select products to show their voting score.</p>
         </EmptyState>
-        {/* <ResourceListWithProducts
-          getUpdateStatus={setUpdateStatus}
-          update={update}
-          getIdUpdateStatus={setIdUpdateStatus}
-          idupdate={idupdate}
-        /> */}
         <ProductsList getUpdateStatus={setUpdateStatus} update={update} />
       </>
     </Page>

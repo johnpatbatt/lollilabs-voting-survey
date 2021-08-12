@@ -67,9 +67,9 @@ function ProductsList(props) {
     );
     const price = item.price;
 
-    const description = item.description;
     return (
       <ResourceItem
+        verticalAlignment="center"
         id={item.id}
         media={media}
         accessibilityLabel={`View details for ${item.title}`}
@@ -77,19 +77,10 @@ function ProductsList(props) {
           store.set("item", item);
         }}
       >
-        <Stack>
-          <Stack.Item fill>
-            <h3>
-              <TextStyle variation="strong">{item.title}</TextStyle>
-            </h3>
-          </Stack.Item>
-          <Stack.Item>
-            <p>${price}</p>
-          </Stack.Item>
-          <Stack.Item>
-            <p>{description}</p>
-          </Stack.Item>
-        </Stack>
+        <h3>
+          <TextStyle variation="strong">{item.title}</TextStyle>
+        </h3>
+        <p>${price}</p>
       </ResourceItem>
     );
   }

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const productInfo = new Schema(
+const micrositeTwo = new Schema(
   {
     id: {
       type: String,
@@ -14,16 +14,17 @@ const productInfo = new Schema(
       type: String,
       maxlength: 50,
     },
-    price: {
-      type: String,
-      maxlength: 50,
-    },
     featuredImage: {
       type: String,
       maxlength: 100,
     },
-    info: {
-      type: Object,
+    score: {
+      type: String,
+      maxlength: 10,
+    },
+    survey: {
+      type: String,
+      maxlength: 50,
     },
   },
   { _id: true },
@@ -36,4 +37,4 @@ const productInfo = new Schema(
   }
 );
 
-module.exports = mongoose.model("productInfo", productInfo);
+module.exports = mongoose.model("micrositeTwo", micrositeTwo);
