@@ -14,10 +14,6 @@ const micrositeOne = new Schema(
       type: String,
       maxlength: 50,
     },
-    featuredImage: {
-      type: String,
-      maxlength: 100,
-    },
     score: {
       type: String,
       maxlength: 10,

@@ -129,6 +129,8 @@ app.prepare().then(async () => {
 
   // Voting Survey
   require("./router/productRouter")(server);
+  require("./router/micrositeOneRouter")(server);
+  require("./router/micrositeTwoRouter")(server);
 
   server.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
