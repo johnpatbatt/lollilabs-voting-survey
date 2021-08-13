@@ -4,7 +4,7 @@ const micrositeTwo = new Schema(
   {
     id: {
       type: String,
-      unique: 1,
+      maxlength: 50,
     },
     title: {
       type: String,
@@ -14,13 +14,8 @@ const micrositeTwo = new Schema(
       type: String,
       maxlength: 50,
     },
-    featuredImage: {
-      type: String,
-      maxlength: 100,
-    },
     score: {
-      type: String,
-      maxlength: 10,
+      type: Number,
     },
     survey: {
       type: String,

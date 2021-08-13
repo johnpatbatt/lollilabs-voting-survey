@@ -1,117 +1,38 @@
 import dotenv from "dotenv";
 const Router = require("koa-router");
-const productModel = require("../models/Product");
+const microTwoModel = require("../models/MicrositeTwo");
 dotenv.config();
-const SHOPIFY_ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
-const ADMIN_GRAPHQL_URL = process.env.ADMIN_GRAPHQL_URL;
 const router = new Router({
-  prefix: "/product",
+  prefix: "/micrositetwo",
 });
 
 function register(app) {
-  // product save router
+  // microsite 2 save router
   router.post("/save", async (ctx) => {
     const products = ctx.request.body.products;
-    const query = `
-      query getProducts($ids: [ID!]!) {
-        nodes(ids: $ids) {
-          ... on Product {
-            title
-            handle
-            descriptionHtml
-            id
-            images(first: 1) {
-              edges {
-                node {
-                  originalSrc
-                  altText
-                }
-              }
-            }
-            variants(first: 1) {
-              edges {
-                node {
-                  price
-                  id
-                }
-              }
-            }
-            metafield1: metafield(namespace: "survey", key: "voting_description") {
-              value
-            }
-            metafield2: metafield(namespace: "survey", key: "voting_gallery") {
-              value
-            }
-            metafield3: metafield(namespace: "survey", key: "voting_featured_img") {
-              value
-            }
-          }
-        }
-      }
-    `;
-    const variables = { ids: products };
+    console.log("microsite two products", products);
+    const insertedSurveys = await microTwoModel.insertMany(products);
 
-    console.log(JSON.stringify(variables));
-
-    const productData = await fetch(ADMIN_GRAPHQL_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Access-Token": SHOPIFY_ACCESS_TOKEN,
-      },
-      body: JSON.stringify({
-        query,
-        variables: variables,
-      }),
-    }).then((result) => {
-      return result.json();
-    });
-
-    console.log("productData", productData);
-
-    const productsFromQuery = productData.data.nodes.map((product) => ({
-      id: product.id,
-      title: product.title,
-      handle: product.handle,
-      price: product.variants.edges[0].node.price,
-      description: product.metafield1.value,
-      gallery: product.metafield2.value,
-      featuredImage: product.metafield3.value,
-    }));
-
-    const removeValIndex = [];
-
-    for (let index = 0; index < productsFromQuery.length; index++) {
-      const productData = productsFromQuery[index];
-
-      const productModelCount = await productModel.countDocuments({
-        id: productData.id,
-      });
-
-      if (productModelCount > 0) {
-        console.log("product already exist");
-        removeValIndex.push(index);
-      } else {
-        console.log("product no exist");
-      }
-    }
-
-    for (let index = removeValIndex.length - 1; index >= 0; index--) {
-      productsFromQuery.splice(removeValIndex[index], 1);
-    }
-
-    const insertedProducts = await productModel.insertMany(productsFromQuery);
-    if (insertedProducts.length > 0) {
-      ctx.body = { success: true, insertedProducts: insertedProducts };
+    if (insertedSurveys.length > 0) {
+      ctx.body = { success: true, insertedSurveys: insertedSurveys };
     } else {
       ctx.body = { success: false };
     }
   });
 
-  // product get router
+  // microsite 2 get router
   router.post("/get", async (ctx) => {
-    const products = await productModel.find({});
-    ctx.body = { success: true, products: products };
+    const surveys = await microTwoModel.find({});
+    const totalSurvey = await microTwoModel.aggregate([
+      {
+        $group: {
+          _id: "$title",
+          totalScore: { $sum: "$score" },
+          avgScore: { $avg: "$score" },
+        },
+      },
+    ]);
+    ctx.body = { success: true, surveys: surveys, totalSurvey: totalSurvey };
   });
 
   // product remove router

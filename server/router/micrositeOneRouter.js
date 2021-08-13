@@ -22,8 +22,17 @@ function register(app) {
 
   // microsite 1 get router
   router.post("/get", async (ctx) => {
-    const products = await productModel.find({});
-    ctx.body = { success: true, products: products };
+    const surveys = await microOneModel.find({});
+    const totalSurvey = await microOneModel.aggregate([
+      {
+        $group: {
+          _id: "$title",
+          totalScore: { $sum: "$score" },
+          avgScore: { $avg: "$score" },
+        },
+      },
+    ]);
+    ctx.body = { success: true, surveys: surveys, totalSurvey: totalSurvey };
   });
 
   // product remove router

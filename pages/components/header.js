@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { Card, Tabs } from "@shopify/polaris";
 import Products from "./products";
-import Scores from "./scores";
+import MirositeOne from "./microsite-one";
+import MirositeTwo from "./microsite-two";
 
 export default function TabsExample() {
   const [selected, setSelected] = useState(0);
@@ -16,7 +17,10 @@ export default function TabsExample() {
         return <Products />;
 
       case 1:
-        return <Scores />;
+        return <MirositeOne />;
+
+      case 2:
+        return <MirositeTwo />;
 
       default:
         return <Products />;
@@ -30,10 +34,16 @@ export default function TabsExample() {
       panelID: "all-voting-products",
     },
     {
-      id: "voting-result",
-      content: "Result",
-      accessibilityLabel: "Voting survey result",
-      panelID: "voting-survey-result",
+      id: "microsite-1",
+      content: "Microsite 1",
+      accessibilityLabel: "Microsite 1 Voting survey result",
+      panelID: "micrositeone-voting-survey-result",
+    },
+    {
+      id: "microsite-2",
+      content: "Microsite 2",
+      accessibilityLabel: "Microsite 2 Voting survey result",
+      panelID: "micrositetwo-voting-survey-result",
     },
   ];
 
