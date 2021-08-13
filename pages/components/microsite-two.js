@@ -44,7 +44,7 @@ export default function FullDataTableExample() {
     <Page title="Microsite 2 Voting Survey">
       <Card>
         <DataTable
-          columnContentTypes={["text", "number", "numeric"]}
+          columnContentTypes={["text", "numeric", "numeric"]}
           headings={["Product", "Total Score", "Avg Score"]}
           rows={totalSurveyRows}
           sortable={[false, true]}
