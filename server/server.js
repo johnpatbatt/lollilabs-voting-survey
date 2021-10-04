@@ -129,6 +129,7 @@ app.prepare().then(async () => {
 
   // Voting Survey
   require("./router/productRouter")(server);
+  require("./router/productTwoRouter")(server);
   require("./router/micrositeOneRouter")(server);
   require("./router/micrositeTwoRouter")(server);
 
